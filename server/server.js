@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 
@@ -5,7 +6,6 @@ const app = require("./src/app");
 
 // ✅ Serve React build
 app.use(express.static(path.join(__dirname, "public")));
-require("dotenv").config();
 
 // ✅ Handle React routes
 app.get("*", (req, res) => {
