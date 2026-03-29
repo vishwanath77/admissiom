@@ -1,0 +1,53 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Program {
+  id         Int         @id @default(autoincrement())
+  name       String
+  intake     Int
+  year       Int
+  quotas     Quota[]
+  admissions Admission[]
+}
+
+model Quota {
+  id          Int     @id @default(autoincrement())
+  programId   Int
+  type        String
+  totalSeats  Int
+  filledSeats Int     @default(0)
+  program     Program @relation(fields: [programId], references: [id])
+}
+
+model Applicant {
+  id         Int         @id @default(autoincrement())
+  name       String
+  category   String
+  quotaType  String
+  marks      Float
+  docStatus  String
+  admissions Admission[]
+}
+
+model Admission {
+  id              Int       @id @default(autoincrement())
+  applicantId     Int
+  programId       Int
+  quotaType       String
+  admissionNumber String    @unique
+  feeStatus       String
+  applicant       Applicant @relation(fields: [applicantId], references: [id])
+  program         Program   @relation(fields: [programId], references: [id])
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  role     String
+}
