@@ -11,5 +11,12 @@
   },
   "devDependencies": {
     "@types/node": "^25.5.0"
-  }
+  },
+  "scripts": {
+  "start": "node index.js",
+  "seed": "node prisma/seed.js"
+},
+"prisma": {
+  "seed": "node prisma/seed.js"
+}
 }
