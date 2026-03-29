@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken");
 
-const SECRET = "MY_SECRET_KEY";
+const SECRET = process.env.JWT_SECRET;
+
+if (!SECRET) {
+  throw new Error("JWT_SECRET is not defined in .env");
+}
 
 function generateToken(user) {
   return jwt.sign(
